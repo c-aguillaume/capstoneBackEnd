@@ -2,6 +2,7 @@
 
 
 [{
+    memberNumber: "",
     demographics: {
     name: "",
     email: "",
@@ -11,7 +12,7 @@
     dob: "",
     occupation: "",},
     fratDemographics: {
-    memberNumber: "",
+    controlNumber: "",
     chapterInitiated: "",
     crossingDate: "",
     eboard: {
@@ -23,14 +24,9 @@
     education: {
     underGradSchool1: "",
     underGradDegree1: "",
-    underGradSchoo2: "",
-    underGradDegree2: "",
     graduateSchool1: "",
     graduateDegree1: "",
-    graduateSchool2: "",
-    graduateDegree2: "",
-    graduateSchool3: "",
-    graduateDegree3: "",},
+    },
     medical: {
         takingMedication: "true/false",
         currentMedication1: "",
