@@ -1,0 +1,44 @@
+
+
+
+[{
+    demographics: {
+    name: "",
+    email: "",
+    phoneNumber: "",
+    address: "",
+    age: "",
+    dob: "",
+    occupation: "",},
+    fratDemographics: {
+    memberNumber: "",
+    chapterInitiated: "",
+    crossingDate: "",
+    eboard: {
+    currentEboard: "true/false",
+    position: "",
+    photo: "#",
+    }
+    },
+    education: {
+    underGradSchool1: "",
+    underGradDegree1: "",
+    underGradSchoo2: "",
+    underGradDegree2: "",
+    graduateSchool1: "",
+    graduateDegree1: "",
+    graduateSchool2: "",
+    graduateDegree2: "",
+    graduateSchool3: "",
+    graduateDegree3: "",},
+    medical: {
+        takingMedication: "true/false",
+        currentMedication1: "",
+        currentMedication2: "",
+        hasMedicalCondition: "true/false",
+        medicalCondition1: "",
+        medicalCondition2: "",
+    }
+    
+
+}]
