@@ -2,12 +2,21 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const cors = require('cors')
+const mongoose = require('mongoose')
+require('dotenv').config()
 
 
 const memberRouter = require('./routes/memberRoutes')
 
 
 //1) MIDDLEWARES 
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
+const db = mongoose.connection
+db.on('error', (error) => console.error(error))
+db.once('open', (error) => console.log('Connected to Database'))
+
+
+
 app.use(
     cors())
 app.use(morgan('dev'))
