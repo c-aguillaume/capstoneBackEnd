@@ -50,7 +50,6 @@ exports.getMember = (req, res) =>{
 
     res.status(200).json({
         status: "success",
-        results: members.length,
         data:{
             member: member
         }
@@ -96,4 +95,5 @@ exports.deleteMember = (req, res) => {
 
 
 
+console.log(members[members.length - 1].id);
 
