@@ -1,20 +1,44 @@
-const { default: mongoose } = require("mongoose");
+const { default: mongoose, mongo } = require("mongoose");
 
 
 const memberSchema = new mongoose.Schema({
     demographics: {
-        name: String,
-        email: String,
-        phoneNumber: String
-    },
+        name: {
+            type: String,
+            required: true
+        },
+        email: {
+            type: String,
+            required: true
+        },
+        phoneNumber: {
+            type: String,
+            required: true
+    }},
     fratDemographics: {
-        controlNumber: String,
-        chapterInitiated: String,
-        crossingDate: String
-    },
+        controlNumber: {
+            type: String,
+            required: true
+        },
+        chapterInitiated: {
+            type: String,
+            required: true
+        },
+        crossingDate: {
+            type: String,
+            required: true
+    }},
     eboard: {
-        currentEboard: Boolean,
-        position: String,
+        currentEboard: {
+            type: Boolean,
+            required: true
+        },
+            position:{
+                type: String,
+                required: false
+            },
         photo: String
     },
 })
+
+module.exports = mongoose.model('members', memberSchema)

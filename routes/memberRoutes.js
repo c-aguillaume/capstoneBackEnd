@@ -3,6 +3,7 @@ const router = express.Router();
 const memberController = require('./../controllers/memberController')
 
 
+
 router.param('id', memberController.checkID)
 
 router
