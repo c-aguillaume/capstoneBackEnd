@@ -2,6 +2,11 @@ const { default: mongoose, mongo } = require("mongoose");
 
 
 const memberSchema = new mongoose.Schema({
+    customId: {
+            type: Number,
+            required: true,
+            unique: true
+        },
     demographics: {
         name: {
             type: String,
@@ -41,4 +46,4 @@ const memberSchema = new mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model('members', memberSchema)
+module.exports = mongoose.model('Member', memberSchema)

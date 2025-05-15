@@ -2,7 +2,9 @@ const express = require('express')
 const router = express.Router();
 const memberController = require('./../controllers/memberController')
 
-
+router
+.route('/seed')
+.get(memberController.seed)
 
 router.param('id', memberController.checkID)
 
