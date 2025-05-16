@@ -4,8 +4,7 @@ const { default: mongoose, mongo } = require("mongoose");
 const memberSchema = new mongoose.Schema({
     customId: {
             type: Number,
-            required: true,
-            unique: true
+            required: true
         },
     demographics: {
         name: {

@@ -22,10 +22,7 @@ app.use(
 app.use(morgan('dev'))
 app.use(express.json());
 
-app.use((req, res, next) => {
-    console.log('Hello from the middleware');
-    next();
-})
+
 
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();
@@ -49,4 +46,10 @@ module.exports = app;
 
 // app.post('/', (req, res) =>{
 //     res.send('You can post to this endpoint...!')
+// })
+
+
+// app.use((req, res, next) => {
+//     console.log('Hello from the middleware');
+//     next();
 // })

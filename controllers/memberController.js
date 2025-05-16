@@ -9,20 +9,11 @@ const Member = require('../models/member.js')
 // 2) ROUTE HANDLERS
 
 
-// exports.checkID = async(req, res, next, val) => {    //Using request params middelware to check if id number is valid
-//         console.log(`Member id is: ${val}`);
-//     if(req.params.id * 1 > Member.length){
-//             return res.status(404).json({
-//                 status: "fail",
-//                 message: "Invalid ID"
-//     });
-// }
-// next();
-// }
-
+/////////////
+////Function to find reqest.parmsams and make it equal to the customId field so that it can be used in route
 
 exports.checkID = async (req, res, next, val) => {
-  console.log(`Member customId is: ${val}`);
+//   console.log(`Member customId is: ${val}`);
 
   try {
     const member = await Member.findOne({ customId: val });
@@ -40,6 +31,91 @@ exports.checkID = async (req, res, next, val) => {
     });
   }
 };
+
+////////////////
+//////Get All Members
+
+exports.getAllMembers = async(req, res) => {
+    try {
+        const members = await Member.find({})
+    res.status(200).json(members)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
+////////////////////
+///////Delete Member
+
+exports.deleteMember = async(req, res) => {
+    try {
+        const id = req.params.id;
+        const deletedMember = await Member.findOneAndDelete({ customId: id });
+        res.status(204).json(deletedMember)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
+/////////////////////////////
+/////Get Individual Member
+
+exports.getMember = async (req, res) => {
+//   console.log(req.params);
+
+  try {
+    const id = req.params.id;
+    const member = await Member.findOne({ customId: id });
+
+    if (!member) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Member not found"
+      });
+    }
+
+    res.status(200).json(member);
+  } catch (err) {
+    res.status(500).json({
+      status: "error",
+      message: "Server error while fetching member"
+    });
+  }
+};
+
+//////////////////////////////
+////////Update Member
+
+exports.updateMember = async(req, res) => {
+    try {
+        const id = req.params.id;
+        const updatedMember = await Member.findOneAndUpdate({ customId: id }, req.body, { new: true});
+        res.status(201).json(updatedMember);
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
+
+///////////////////////////////
+/////////Create Member
+
+exports.createMember = async(req, res) => {
+    try {
+        // const newCustomId = await Member.findOne().sort({ customId: -1}) + 1;
+        // const createdMember = Object.assign({customId: newCustomId }, req.body)
+        // await Member.create(createdMember)
+        const createdMember = await Member.create(req.body)
+        res.status(201).json(createdMember)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
+
+
+/////////////////////////////
+/////Seeded Data 
 
 exports.seed = async(req, res) => {
     try {
@@ -361,15 +437,6 @@ exports.seed = async(req, res) => {
 
 
 
-exports.getAllMembers = async(req, res) => {
-    try {
-        const members = await Member.find({})
-    res.status(200).json(members)
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
-}
-
 
 /////////
 ///Get All members routes using Hard coded data.
@@ -397,28 +464,7 @@ exports.getAllMembers = async(req, res) => {
 
 
 
-exports.getMember = async (req, res) => {
-//   console.log(req.params);
 
-  try {
-    const id = req.params.id;
-    const member = await Member.findOne({ customId: id });
-
-    if (!member) {
-      return res.status(404).json({
-        status: "fail",
-        message: "Member not found"
-      });
-    }
-
-    res.status(200).json(member);
-  } catch (err) {
-    res.status(500).json({
-      status: "error",
-      message: "Server error while fetching member"
-    });
-  }
-};
 
 
 
@@ -455,44 +501,19 @@ exports.getMember = async (req, res) => {
     // }
 
 
-exports.createMember = (req, res) => {
-// console.log(req.body);
 
-const newId = members[members.length - 1].id + 1;
-const newMember = Object.assign({id: newId }, req.body)
 
-members.push(newMember);
-fs.writeFile(`${__dirname}/dev-data/data/members-simple.json`, JSON.stringify(members), err => {
-res.status(201).json({
-    status: "success",
-    data: {
-        member: newMember
-    }
+// exports.updateMember = (req, res) => {
+// // console.log(req.body);
 
-})
-})
-}
+// res.status(200).json({
+//     status: 'success',
+//     data: {
+//         member: '<Updated member here...>'
+//     }
+// });
+// };
 
-exports.updateMember = (req, res) => {
-// console.log(req.body);
-
-res.status(200).json({
-    status: 'success',
-    data: {
-        member: '<Updated member here...>'
-    }
-});
-};
-
-exports.deleteMember = async(req, res) => {
-    try {
-        const id = req.params.id;
-        const deletedMember = await Member.findOneAndDelete({ customId: id });
-        res.status(204).json(deletedMember)
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
-}
 
 
 
@@ -509,3 +530,40 @@ exports.deleteMember = async(req, res) => {
 
 
 
+/////////
+////Old way to check id number in the req.params for Static Data
+
+// exports.checkID = async(req, res, next, val) => {    //Using request params middelware to check if id number is valid
+//         console.log(`Member id is: ${val}`);
+//     if(req.params.id * 1 > Member.length){
+//             return res.status(404).json({
+//                 status: "fail",
+//                 message: "Invalid ID"
+//     });
+// }
+// next();
+// }
+
+
+
+///////////////////////////
+/////Old way to create Member
+
+
+// exports.createMember = (req, res) => {
+// // console.log(req.body);
+
+// const newId = members[members.length - 1].id + 1;
+// const newMember = Object.assign({id: newId }, req.body)
+
+// members.push(newMember);
+// fs.writeFile(`${__dirname}/dev-data/data/members-simple.json`, JSON.stringify(members), err => {
+// res.status(201).json({
+//     status: "success",
+//     data: {
+//         member: newMember
+//     }
+
+// })
+// })
+// }
